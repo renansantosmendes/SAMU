@@ -11,6 +11,9 @@ import java.io.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import jxl.*;
 import jxl.read.biff.BiffException;
 import jxl.write.DateTime;
@@ -27,14 +30,16 @@ public class ExcelDataReader {
         this.filePath = filePath;
     }
 
-    public void readDataFromWorkSheet() throws IOException, BiffException {
-        Workbook workbook = Workbook.getWorkbook(new File(this.filePath));
+    public List<SamuOccurrence> readDataFromWorkSheet() throws IOException, BiffException {
+        WorkbookSettings conf = new WorkbookSettings();
+        conf.setEncoding("ISO-8859-1");
+        Workbook workbook = Workbook.getWorkbook(new File(this.filePath),conf);
         Sheet sheet = workbook.getSheet(0);
         int rows = sheet.getRows();
         int columns = sheet.getColumns();
         System.out.println("Número de Linhas = " + rows);
         System.out.println("Iniciando a leitura da planilha XLS:");
-
+        List<SamuOccurrence> occurrences = new ArrayList<>();
         for (int i = 1; i < rows; i++) {
             Cell id = sheet.getCell(0, i);
             Cell transmitionTime = sheet.getCell(1, i);
@@ -162,45 +167,43 @@ public class ExcelDataReader {
                 Hospital hospital = new Hospital(hospitalName.getContents(), null);
                 samuOccurrence.setHospital(hospital);
             }
-            
+
             if (observation.getContents() == "") {
                 samuOccurrence.setObservation("");
                 nullValuesCounter++;
             } else {
                 samuOccurrence.setObservation(observation.getContents());
             }
-            
+
             if (betweenHospital.getContents().compareTo("") == 0) {
                 System.out.println(betweenHospital.getContents());
                 samuOccurrence.setBetweenHospitals(false);
                 nullValuesCounter++;
+            } else if (betweenHospital.getContents().toUpperCase().compareTo("SIM") == 0) {
+                samuOccurrence.setBetweenHospitals(true);
             } else {
-                if(betweenHospital.getContents().toUpperCase().compareTo("SIM") == 0){
-                    samuOccurrence.setBetweenHospitals(true);
-                }else{
-                    samuOccurrence.setBetweenHospitals(false);
-                }
+                samuOccurrence.setBetweenHospitals(false);
             }
-            
-            
+
             //TODO implements methods to ambulance type and id
             LocalDate occurrenceDate;
-            if (occurrenceDay.getContents() == "" && occurrenceMonth.getContents() == "" && occurrenceYear.getContents() ==""){
-                occurrenceDate = LocalDate.of(1, 1, 2000);
+            if (occurrenceDay.getContents() == "" && occurrenceMonth.getContents() == "" && occurrenceYear.getContents() == "") {
+                occurrenceDate = LocalDate.of(2000, 1, 1);
                 samuOccurrence.setOccurrenceDate(occurrenceDate);
-            }else{
-                 occurrenceDate = LocalDate.of(Integer.parseInt(occurrenceDay.getContents()),
-                         Integer.parseInt(occurrenceMonth.getContents()), Integer.parseInt(occurrenceYear.getContents()));
-                 samuOccurrence.setOccurrenceDate(occurrenceDate);
+            } else {
+                occurrenceDate = LocalDate.of(Integer.parseInt(occurrenceYear.getContents()),
+                        Integer.parseInt(occurrenceMonth.getContents()), Integer.parseInt(occurrenceDay.getContents()));
+                samuOccurrence.setOccurrenceDate(occurrenceDate);
             }
-            
-            
-            if (nullValuesCounter == samuOccurrence.getClass().getDeclaredFields().length) {
+
+            if (nullValuesCounter >= 12) {
                 i++;
+            } else {
+                occurrences.add(samuOccurrence);
             }
-            System.out.println(occurrenceDay.getContents() + "\t" + occurrenceMonth.getContents() + "\t" + occurrenceYear.getContents() + "\t");
         }
 
         workbook.close();
+        return occurrences;
     }
 }

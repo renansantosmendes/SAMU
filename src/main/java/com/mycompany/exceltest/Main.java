@@ -6,8 +6,11 @@
 package com.mycompany.exceltest;
 
 import DataReader.ExcelDataReader;
+import SAMU.SamuOccurrence;
 import java.io.*;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.util.List;
 import jxl.read.biff.BiffException;
 
 /**
@@ -17,10 +20,15 @@ import jxl.read.biff.BiffException;
 public class Main {
 
     public static void main(String[] args) throws IOException, BiffException, SQLException {
-        String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
-        new ExcelDataReader(filePath).readDataFromWorkSheet();
-
+        //String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
+        String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
         
+        List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
+        occurrences.forEach(u -> System.out.println(u));
+        
+        //occurrences.forEach(u -> {System.out.println(Duration.between(u.getTransmissionTime(), u.getPlaceArrivalTime()).toMinutes());});
+        //System.out.println("Number of Occurrences = "+occurrences.size());
+
     }
 
 }

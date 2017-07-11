@@ -208,5 +208,26 @@ public class SamuOccurrence {
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
-
+    
+    @Override
+    public String toString(){
+        return this.serviceNumber + "\t"+
+        this.transmissionTime + "\t"+
+        this.placeArrivalTime + "\t"+
+        this.placeDepartureTime + "\t"+
+        this.hospitalArrivalTime + "\t"+
+        this.ambulanceReleaseTime + "\t"+
+        this.adress + "\t"+
+        this.neighborhood + "\t"+
+        this.region1 + "\t"+
+        this.region2 + "\t"+
+        this.occurrence + "\t"+
+        this.occurrenceDetail + "\t"+
+        this.hospital + "\t"+
+        this.observation + "\t"+
+        this.betweenHospitals + "\t"+
+        this.ambulance + "\t"+
+        this.occurrenceDate + "\t"+
+        this.dayOfWeek;
+    }
 }
