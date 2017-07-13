@@ -22,12 +22,12 @@ public class Main {
     public static void main(String[] args) throws IOException, BiffException, SQLException {
         //String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
         String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
-        
+
         List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
         occurrences.forEach(u -> System.out.println(u));
-        
+
         //occurrences.forEach(u -> {System.out.println(Duration.between(u.getTransmissionTime(), u.getPlaceArrivalTime()).toMinutes());});
-        //System.out.println("Number of Occurrences = "+occurrences.size());
+        //System.out.println("Number of Occurrences = " + occurrences.size());
 
     }
 

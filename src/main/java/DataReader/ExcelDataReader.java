@@ -5,6 +5,7 @@
  */
 package DataReader;
 
+import SAMU.Ambulance;
 import SAMU.Hospital;
 import SAMU.SamuOccurrence;
 import java.io.*;
@@ -33,7 +34,7 @@ public class ExcelDataReader {
     public List<SamuOccurrence> readDataFromWorkSheet() throws IOException, BiffException {
         WorkbookSettings conf = new WorkbookSettings();
         conf.setEncoding("ISO-8859-1");
-        Workbook workbook = Workbook.getWorkbook(new File(this.filePath),conf);
+        Workbook workbook = Workbook.getWorkbook(new File(this.filePath), conf);
         Sheet sheet = workbook.getSheet(0);
         int rows = sheet.getRows();
         int columns = sheet.getColumns();
@@ -57,7 +58,7 @@ public class ExcelDataReader {
             Cell observation = sheet.getCell(13, i);
             Cell betweenHospital = sheet.getCell(14, i);
             Cell ambulanceType = sheet.getCell(15, i);
-            Cell ambulanceId = sheet.getCell(15, i);
+            Cell ambulanceId = sheet.getCell(16, i);
             Cell occurrenceDay = sheet.getCell(18, i);
             Cell occurrenceMonth = sheet.getCell(19, i);
             Cell occurrenceYear = sheet.getCell(20, i);
@@ -194,6 +195,12 @@ public class ExcelDataReader {
                 occurrenceDate = LocalDate.of(Integer.parseInt(occurrenceYear.getContents()),
                         Integer.parseInt(occurrenceMonth.getContents()), Integer.parseInt(occurrenceDay.getContents()));
                 samuOccurrence.setOccurrenceDate(occurrenceDate);
+            }
+
+            if (ambulanceType.getContents() == "" && ambulanceId.getContents() == "") {
+                Ambulance ambulance = new Ambulance("", 0);
+            } else {
+                Ambulance ambulance = new Ambulance(ambulanceType.getContents(), Integer.parseInt(ambulanceId.getContents()));
             }
 
             if (nullValuesCounter >= 12) {

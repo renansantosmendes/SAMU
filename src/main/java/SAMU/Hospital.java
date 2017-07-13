@@ -34,5 +34,10 @@ public class Hospital {
     public void setHospitalAdress(String hospitalAdress) {
         this.hospitalAdress = hospitalAdress;
     }
+    
+    @Override
+    public String toString(){
+        return this.hospitalName + " - " + this.hospitalAdress;
+    }
 
 }
