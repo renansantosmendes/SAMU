@@ -6,6 +6,7 @@
 package com.mycompany.exceltest;
 
 import DataReader.ExcelDataReader;
+import DataReader.SamuOccurrenceDAO;
 import SAMU.SamuOccurrence;
 import java.io.*;
 import java.sql.SQLException;
@@ -25,9 +26,13 @@ public class Main {
 
         List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
         occurrences.forEach(u -> System.out.println(u));
-
+        //occurrences.forEach(u -> System.out.println(u.getAmbulance().getAmbulanceType()));
+        
+        //SamuOccurrence occurrence = occurrences.get(0);
+        //new SamuOccurrenceDAO().addOccurrenceIntoDataBase(occurrences);
+        
         //occurrences.forEach(u -> {System.out.println(Duration.between(u.getTransmissionTime(), u.getPlaceArrivalTime()).toMinutes());});
-        //System.out.println("Number of Occurrences = " + occurrences.size());
+        System.out.println("Number of Occurrences = " + occurrences.size());
 
     }
 

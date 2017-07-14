@@ -192,15 +192,17 @@ public class ExcelDataReader {
                 occurrenceDate = LocalDate.of(2000, 1, 1);
                 samuOccurrence.setOccurrenceDate(occurrenceDate);
             } else {
-                occurrenceDate = LocalDate.of(Integer.parseInt(occurrenceYear.getContents()),
+                occurrenceDate = LocalDate.of(2000 + Integer.parseInt(occurrenceYear.getContents()),
                         Integer.parseInt(occurrenceMonth.getContents()), Integer.parseInt(occurrenceDay.getContents()));
                 samuOccurrence.setOccurrenceDate(occurrenceDate);
             }
 
             if (ambulanceType.getContents() == "" && ambulanceId.getContents() == "") {
                 Ambulance ambulance = new Ambulance("", 0);
+                samuOccurrence.setAmbulance(ambulance);
             } else {
                 Ambulance ambulance = new Ambulance(ambulanceType.getContents(), Integer.parseInt(ambulanceId.getContents()));
+                samuOccurrence.setAmbulance(ambulance);
             }
 
             if (nullValuesCounter >= 12) {

@@ -10,20 +10,20 @@ package SAMU;
  * @author renansantos
  */
 public class Ambulance {
-    private String ambalanceType;
+    private String ambulanceType;
     private int ambulanceId;
 
     public Ambulance(String ambalanceType, int ambulanceId) {
-        this.ambalanceType = ambalanceType;
+        this.ambulanceType = ambalanceType;
         this.ambulanceId = ambulanceId;
     }
 
-    public String getAmbalanceType() {
-        return ambalanceType;
+    public String getAmbulanceType() {
+        return ambulanceType;
     }
 
-    public void setAmbalanceType(String ambalanceType) {
-        this.ambalanceType = ambalanceType;
+    public void setAmbulanceType(String ambulanceType) {
+        this.ambulanceType = ambulanceType;
     }
 
     public int getAmbulanceId() {
