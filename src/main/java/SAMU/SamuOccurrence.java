@@ -5,6 +5,7 @@
  */
 package SAMU;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,6 +35,9 @@ public class SamuOccurrence {
     private Ambulance ambulance;
     private LocalDate occurrenceDate;
     private String dayOfWeek;
+    private Duration displacementToThePlaceDuration;
+    private Duration ambulanceAttendanceDuration;
+    private Duration displacementToTheHospitalDuration;
 
     public SamuOccurrence() {
 
@@ -208,26 +212,65 @@ public class SamuOccurrence {
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
+
+    public void calculateDisplacementToThePlaceDuration() {
+        this.displacementToThePlaceDuration = Duration.between(transmissionTime, placeArrivalTime);
+        if (this.displacementToThePlaceDuration.getSeconds() < 0) {
+            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.transmissionTime);
+            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime).plusDays(1);
+            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
+        }
+    }
+
+    public Duration getDisplacementToThePlaceDuration() {
+        return this.displacementToThePlaceDuration;
+    }
+
+    public void calculateAmbulanceAttendanceDuration() {
+        this.ambulanceAttendanceDuration = Duration.between(placeArrivalTime, placeDepartureTime);
+        if (this.ambulanceAttendanceDuration.getSeconds() < 0) {
+            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime);
+            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime).plusDays(1);
+            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
+        }
+    }
     
+    public Duration getAmbulanceAttendanceDuration() {
+        return this.ambulanceAttendanceDuration;
+    }
+
+    public void calculateDisplacementToTheHospitalDuration() {
+        this.displacementToTheHospitalDuration = Duration.between(placeDepartureTime, hospitalArrivalTime);
+        if (this.displacementToTheHospitalDuration.getSeconds() < 0) {
+            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime);
+            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.hospitalArrivalTime).plusDays(1);
+            this.displacementToTheHospitalDuration = Duration.between(lct1, lct2);
+        }
+    }
+    
+     public Duration getDisplacementToTheHospitalDuration() {
+        return this.displacementToTheHospitalDuration;
+    }
+
     @Override
-    public String toString(){
-        return this.serviceNumber + "\t"+
-        this.transmissionTime + "\t"+
-        this.placeArrivalTime + "\t"+
-        this.placeDepartureTime + "\t"+
-        this.hospitalArrivalTime + "\t"+
-        this.ambulanceReleaseTime + "\t"+
-        this.adress + "\t"+
-        this.neighborhood + "\t"+
-        this.region1 + "\t"+
-        this.region2 + "\t"+
-        this.occurrence + "\t"+
-        this.occurrenceDetail + "\t"+
-        this.hospital + "\t"+
-        this.observation + "\t"+
-        this.betweenHospitals + "\t"+
-        this.ambulance + "\t"+
-        this.occurrenceDate + "\t"+
-        this.dayOfWeek;
+    public String toString() {
+        return this.serviceNumber + "\t"
+                + this.transmissionTime + "\t"
+                + this.placeArrivalTime + "\t"
+                + this.placeDepartureTime + "\t"
+                + this.hospitalArrivalTime + "\t"
+                + this.ambulanceReleaseTime + "\t"
+                + this.adress + "\t"
+                + this.neighborhood + "\t"
+                + this.region1 + "\t"
+                + this.region2 + "\t"
+                + this.occurrence + "\t"
+                + this.occurrenceDetail + "\t"
+                + this.hospital + "\t"
+                + this.observation + "\t"
+                + this.betweenHospitals + "\t"
+                + this.ambulance + "\t"
+                + this.occurrenceDate + "\t"
+                + this.dayOfWeek;
     }
 }

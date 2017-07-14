@@ -25,7 +25,9 @@ public class Main {
         String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
 
         List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
-        occurrences.forEach(u -> System.out.println(u));
+        
+        occurrences.forEach(u -> u.calculateDisplacementToThePlaceDuration());
+        occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration().toMinutes()));
         //occurrences.forEach(u -> System.out.println(u.getAmbulance().getAmbulanceType()));
         
         //SamuOccurrence occurrence = occurrences.get(0);
