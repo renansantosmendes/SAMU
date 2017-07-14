@@ -8,9 +8,13 @@ package DataReader;
 import SAMU.SamuOccurrence;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import jxl.Cell;
 
 /**
  *
@@ -100,5 +104,53 @@ public class SamuOccurrenceDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<SamuOccurrence> getListOfOccurrences() {
+        try {
+            String sql = "select * from " + this.tableName;
+            List<SamuOccurrence> listOfOccurrences = new ArrayList<>();
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("service_number");
+                //LocalTime transmitionTime = LocalTime.of(0, 0)resultSet.getTime("place_arrival_time").toLocalTime();
+//                Cell placeArrivalTime = sheet.getCell(2, i);
+//                Cell placeDepartureTime = sheet.getCell(3, i);
+//                Cell hospitalArrivalTime = sheet.getCell(4, i);
+//                Cell ambulanceReleaseTime = sheet.getCell(5, i);
+//                Cell adress = sheet.getCell(6, i);
+//                Cell neighborhood = sheet.getCell(7, i);
+//                Cell region1 = sheet.getCell(8, i);
+//                Cell region2 = sheet.getCell(9, i);
+//                Cell occurrence = sheet.getCell(10, i);
+//                Cell occurrenceDetail = sheet.getCell(11, i);
+//                Cell hospitalName = sheet.getCell(12, i);
+//                Cell observation = sheet.getCell(13, i);
+//                Cell betweenHospital = sheet.getCell(14, i);
+//                Cell ambulanceType = sheet.getCell(15, i);
+//                Cell ambulanceId = sheet.getCell(16, i);
+//                Cell occurrenceDay = sheet.getCell(18, i);
+//                Cell occurrenceMonth = sheet.getCell(19, i);
+//                Cell occurrenceYear = sheet.getCell(20, i);
+//
+//                Integer requestId = resultSet.getInt("id");
+//
+//                Integer deliveryTimeWindowUpper = 60 * (resultSet.getTime("deliveryTimeWindowUpper").toLocalTime().getHour())
+//                        + resultSet.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
+//                
+                SamuOccurrence samuOccurrence = new SamuOccurrence();
+                listOfOccurrences.add(samuOccurrence);
+            }
+            resultSet.close();
+            statement.close();
+            this.connection.close();
+            return listOfOccurrences;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

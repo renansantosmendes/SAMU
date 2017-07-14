@@ -23,7 +23,7 @@ public class ConnectionFactory {
         try {
             return DriverManager.getConnection("jdbc:mysql://localhost/" + database + "?useLegacyDatetimeCode=false"
                     + "&serverTimezone=UTC", user, password);
-            //return DriverManager.getConnection("jdbc:mysql://localhost/instances","root","");
+            //return DriverManager.getConnection("jdbc:mysql://localhost/"+database,user,password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

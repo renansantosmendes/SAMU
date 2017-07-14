@@ -24,7 +24,8 @@ public class Main {
         //String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
         String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
 
-        List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
+        //List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
+        List<SamuOccurrence> occurrences = new SamuOccurrenceDAO().getListOfOccurrences();
         
         occurrences.forEach(u -> u.calculateDisplacementToThePlaceDuration());
         occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration().toMinutes()));
