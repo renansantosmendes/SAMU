@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -116,7 +117,26 @@ public class SamuOccurrenceDAO {
 
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("service_number");
-                //LocalTime transmitionTime = LocalTime.of(0, 0)resultSet.getTime("place_arrival_time").toLocalTime();
+                LocalDate occurrenceDate = resultSet.getDate("occurrence_date").toLocalDate();
+                
+                LocalDateTime transmissionTime = LocalDateTime.of(occurrenceDate, 
+                        resultSet.getTime("transmission_time").toLocalTime());
+                
+                LocalDateTime placeArrivalTime = LocalDateTime.of(occurrenceDate,
+                        resultSet.getTime("place_arrival_time").toLocalTime());
+                
+                LocalDateTime placeDepartureTime = LocalDateTime.of(occurrenceDate,
+                        resultSet.getTime("place_departure_time").toLocalTime());
+                
+                LocalDateTime hospitalArrivalTime = LocalDateTime.of(occurrenceDate,
+                        resultSet.getTime("hospital_arrival_time").toLocalTime());
+                
+                LocalDateTime ambulanceReleaseTime = LocalDateTime.of(occurrenceDate,
+                        resultSet.getTime("ambulance_release_time").toLocalTime());
+                
+                String ambulanceType = resultSet.getString("ambulance_type");
+                
+                
 //                Cell placeArrivalTime = sheet.getCell(2, i);
 //                Cell placeDepartureTime = sheet.getCell(3, i);
 //                Cell hospitalArrivalTime = sheet.getCell(4, i);

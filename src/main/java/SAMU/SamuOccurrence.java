@@ -18,11 +18,11 @@ import jxl.write.DateTime;
 public class SamuOccurrence {
 
     private int serviceNumber;
-    private LocalTime transmissionTime;
-    private LocalTime placeArrivalTime;
-    private LocalTime placeDepartureTime;
-    private LocalTime hospitalArrivalTime;
-    private LocalTime ambulanceReleaseTime;
+    private LocalDateTime transmissionTime;
+    private LocalDateTime placeArrivalTime;
+    private LocalDateTime placeDepartureTime;
+    private LocalDateTime hospitalArrivalTime;
+    private LocalDateTime ambulanceReleaseTime;
     private String adress;
     private String neighborhood;
     private String region1;
@@ -43,8 +43,8 @@ public class SamuOccurrence {
 
     }
 
-    public SamuOccurrence(int serviceNumber, LocalTime transmissionTime, LocalTime placeArrivalTime, LocalTime placeDepartureTime,
-            LocalTime hospitalArrivalTime, LocalTime ambulanceReleaseTime,
+    public SamuOccurrence(int serviceNumber, LocalDateTime transmissionTime, LocalDateTime placeArrivalTime, LocalDateTime placeDepartureTime,
+            LocalDateTime hospitalArrivalTime, LocalDateTime ambulanceReleaseTime,
             String adress, String neighborhood, String region1, String region2, String occurrence, String occurrenceDetail,
             Hospital hospital, String observation, boolean betweenHospitals, Ambulance ambulance, LocalDate occurrenceDate,
             String dayOfWeek) {
@@ -73,23 +73,23 @@ public class SamuOccurrence {
         return serviceNumber;
     }
 
-    public LocalTime getTransmissionTime() {
+    public LocalDateTime getTransmissionTime() {
         return transmissionTime;
     }
 
-    public LocalTime getPlaceArrivalTime() {
+    public LocalDateTime getPlaceArrivalTime() {
         return placeArrivalTime;
     }
 
-    public LocalTime getPlaceDepartureTime() {
+    public LocalDateTime getPlaceDepartureTime() {
         return placeDepartureTime;
     }
 
-    public LocalTime getHospitalArrivalTime() {
+    public LocalDateTime getHospitalArrivalTime() {
         return hospitalArrivalTime;
     }
 
-    public LocalTime getAmbulanceReleaseTime() {
+    public LocalDateTime getAmbulanceReleaseTime() {
         return ambulanceReleaseTime;
     }
 
@@ -145,23 +145,23 @@ public class SamuOccurrence {
         this.serviceNumber = serviceNumber;
     }
 
-    public void setTransmissionTime(LocalTime transmissionTime) {
+    public void setTransmissionTime(LocalDateTime transmissionTime) {
         this.transmissionTime = transmissionTime;
     }
 
-    public void setPlaceArrivalTime(LocalTime placeArrivalTime) {
+    public void setPlaceArrivalTime(LocalDateTime placeArrivalTime) {
         this.placeArrivalTime = placeArrivalTime;
     }
 
-    public void setPlaceDepartureTime(LocalTime placeDepartureTime) {
+    public void setPlaceDepartureTime(LocalDateTime placeDepartureTime) {
         this.placeDepartureTime = placeDepartureTime;
     }
 
-    public void setHospitalArrivalTime(LocalTime hospitalArrivalTime) {
+    public void setHospitalArrivalTime(LocalDateTime hospitalArrivalTime) {
         this.hospitalArrivalTime = hospitalArrivalTime;
     }
 
-    public void setAmbulanceReleaseTime(LocalTime ambulanceReleaseTime) {
+    public void setAmbulanceReleaseTime(LocalDateTime ambulanceReleaseTime) {
         this.ambulanceReleaseTime = ambulanceReleaseTime;
     }
 
@@ -216,9 +216,9 @@ public class SamuOccurrence {
     public void calculateDisplacementToThePlaceDuration() {
         this.displacementToThePlaceDuration = Duration.between(transmissionTime, placeArrivalTime);
         if (this.displacementToThePlaceDuration.getSeconds() < 0) {
-            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.transmissionTime);
-            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime).plusDays(1);
-            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
+//            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.transmissionTime);
+//            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime).plusDays(1);
+//            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
         }
     }
 
@@ -229,9 +229,9 @@ public class SamuOccurrence {
     public void calculateAmbulanceAttendanceDuration() {
         this.ambulanceAttendanceDuration = Duration.between(placeArrivalTime, placeDepartureTime);
         if (this.ambulanceAttendanceDuration.getSeconds() < 0) {
-            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime);
-            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime).plusDays(1);
-            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
+//            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime);
+//            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime).plusDays(1);
+//            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
         }
     }
     
@@ -242,9 +242,9 @@ public class SamuOccurrence {
     public void calculateDisplacementToTheHospitalDuration() {
         this.displacementToTheHospitalDuration = Duration.between(placeDepartureTime, hospitalArrivalTime);
         if (this.displacementToTheHospitalDuration.getSeconds() < 0) {
-            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime);
-            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.hospitalArrivalTime).plusDays(1);
-            this.displacementToTheHospitalDuration = Duration.between(lct1, lct2);
+//            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime);
+//            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.hospitalArrivalTime).plusDays(1);
+//            this.displacementToTheHospitalDuration = Duration.between(lct1, lct2);
         }
     }
     

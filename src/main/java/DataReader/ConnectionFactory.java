@@ -21,8 +21,8 @@ public class ConnectionFactory {
 
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost/" + database + "?useLegacyDatetimeCode=false"
-                    + "&serverTimezone=UTC", user, password);
+            return DriverManager.getConnection("jdbc:mysql://localhost/" + database + "?useLegacyDatetimeCode=true"
+                    + "&serverTimezone=Brazil/East", user, password);
             //return DriverManager.getConnection("jdbc:mysql://localhost/"+database,user,password);
         } catch (SQLException e) {
             throw new RuntimeException(e);

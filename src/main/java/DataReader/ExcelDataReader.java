@@ -11,6 +11,7 @@ import SAMU.SamuOccurrence;
 import java.io.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -72,50 +73,61 @@ public class ExcelDataReader {
             } else {
                 samuOccurrence.setServiceNumber(Integer.parseInt(id.getContents()));
             }
+            
+            LocalDate occurrenceDate;
+            if (occurrenceDay.getContents() == "" && occurrenceMonth.getContents() == "" && occurrenceYear.getContents() == "") {
+                occurrenceDate = LocalDate.of(2000, 1, 1);
+                samuOccurrence.setOccurrenceDate(occurrenceDate);
+            } else {
+                occurrenceDate = LocalDate.of(2000 + Integer.parseInt(occurrenceYear.getContents()),
+                        Integer.parseInt(occurrenceMonth.getContents()), Integer.parseInt(occurrenceDay.getContents()));
+                samuOccurrence.setOccurrenceDate(occurrenceDate);
+            }
+
 
             if (transmitionTime.getContents() == "") {
-                samuOccurrence.setTransmissionTime(LocalTime.of(0, 0));
+                samuOccurrence.setTransmissionTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
                 nullValuesCounter++;
             } else {
                 String[] transmitionTimeString = transmitionTime.getContents().split(":");
-                samuOccurrence.setTransmissionTime(LocalTime
-                        .of(Integer.parseInt(transmitionTimeString[0]), Integer.parseInt(transmitionTimeString[1])));
+                samuOccurrence.setTransmissionTime(LocalDateTime.of(occurrenceDate, LocalTime
+                        .of(Integer.parseInt(transmitionTimeString[0]), Integer.parseInt(transmitionTimeString[1]))));
             }
 
             if (placeArrivalTime.getContents() == "") {
-                samuOccurrence.setPlaceArrivalTime(LocalTime.of(0, 0));
+                samuOccurrence.setPlaceArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
                 nullValuesCounter++;
             } else {
                 String[] placeArrivalTimeString = placeArrivalTime.getContents().split(":");
-                samuOccurrence.setPlaceArrivalTime(LocalTime
-                        .of(Integer.parseInt(placeArrivalTimeString[0]), Integer.parseInt(placeArrivalTimeString[1])));
+                samuOccurrence.setPlaceArrivalTime(LocalDateTime.of(occurrenceDate, LocalTime
+                        .of(Integer.parseInt(placeArrivalTimeString[0]), Integer.parseInt(placeArrivalTimeString[1]))));
             }
 
             if (placeDepartureTime.getContents() == "") {
-                samuOccurrence.setPlaceDepartureTime(LocalTime.of(0, 0));
+                samuOccurrence.setPlaceDepartureTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
                 nullValuesCounter++;
             } else {
                 String[] placeDepartureTimeString = placeDepartureTime.getContents().split(":");
-                samuOccurrence.setPlaceDepartureTime(LocalTime
-                        .of(Integer.parseInt(placeDepartureTimeString[0]), Integer.parseInt(placeDepartureTimeString[1])));
+                samuOccurrence.setPlaceDepartureTime(LocalDateTime.of(occurrenceDate,LocalTime
+                        .of(Integer.parseInt(placeDepartureTimeString[0]), Integer.parseInt(placeDepartureTimeString[1]))));
             }
 
             if (hospitalArrivalTime.getContents() == "") {
-                samuOccurrence.setHospitalArrivalTime(LocalTime.of(0, 0));
+                samuOccurrence.setHospitalArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
                 nullValuesCounter++;
             } else {
                 String[] transmitionTimeString = hospitalArrivalTime.getContents().split(":");
-                samuOccurrence.setHospitalArrivalTime(LocalTime
-                        .of(Integer.parseInt(transmitionTimeString[0]), Integer.parseInt(transmitionTimeString[1])));
+                samuOccurrence.setHospitalArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime
+                        .of(Integer.parseInt(transmitionTimeString[0]), Integer.parseInt(transmitionTimeString[1]))));
             }
 
             if (ambulanceReleaseTime.getContents() == "") {
-                samuOccurrence.setAmbulanceReleaseTime(LocalTime.of(0, 0));
+                samuOccurrence.setAmbulanceReleaseTime(LocalDateTime.of(occurrenceDate, LocalTime.of(0, 0)));
                 nullValuesCounter++;
             } else {
                 String[] ambulanceReleaseTimeString = ambulanceReleaseTime.getContents().split(":");
-                samuOccurrence.setAmbulanceReleaseTime(LocalTime
-                        .of(Integer.parseInt(ambulanceReleaseTimeString[0]), Integer.parseInt(ambulanceReleaseTimeString[1])));
+                samuOccurrence.setAmbulanceReleaseTime(LocalDateTime.of(occurrenceDate, LocalTime
+                        .of(Integer.parseInt(ambulanceReleaseTimeString[0]), Integer.parseInt(ambulanceReleaseTimeString[1]))));
             }
 
             if (adress.getContents() == "") {
@@ -187,16 +199,7 @@ public class ExcelDataReader {
             }
 
             //TODO implements methods to ambulance type and id
-            LocalDate occurrenceDate;
-            if (occurrenceDay.getContents() == "" && occurrenceMonth.getContents() == "" && occurrenceYear.getContents() == "") {
-                occurrenceDate = LocalDate.of(2000, 1, 1);
-                samuOccurrence.setOccurrenceDate(occurrenceDate);
-            } else {
-                occurrenceDate = LocalDate.of(2000 + Integer.parseInt(occurrenceYear.getContents()),
-                        Integer.parseInt(occurrenceMonth.getContents()), Integer.parseInt(occurrenceDay.getContents()));
-                samuOccurrence.setOccurrenceDate(occurrenceDate);
-            }
-
+            
             if (ambulanceType.getContents() == "" && ambulanceId.getContents() == "") {
                 Ambulance ambulance = new Ambulance("", 0);
                 samuOccurrence.setAmbulance(ambulance);

@@ -27,8 +27,10 @@ public class Main {
         //List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
         List<SamuOccurrence> occurrences = new SamuOccurrenceDAO().getListOfOccurrences();
         
-        occurrences.forEach(u -> u.calculateDisplacementToThePlaceDuration());
-        occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration().toMinutes()));
+        occurrences.forEach(u -> System.out.println(u));
+        
+        //occurrences.forEach(u -> u.calculateDisplacementToThePlaceDuration());
+        //occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration().toMinutes()));
         //occurrences.forEach(u -> System.out.println(u.getAmbulance().getAmbulanceType()));
         
         //SamuOccurrence occurrence = occurrences.get(0);
