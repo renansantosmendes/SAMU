@@ -6,12 +6,15 @@
 package com.mycompany.exceltest;
 
 import DataReader.ExcelDataReader;
-import DataReader.SamuOccurrenceDAO;
-import SAMU.SamuOccurrence;
+import DataReader.OccurrenceDAO;
+import SAMU.Occurrence;
 import java.io.*;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import jxl.read.biff.BiffException;
 
 /**
@@ -25,20 +28,31 @@ public class Main {
         String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
 
         //List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
-        List<SamuOccurrence> occurrences = new SamuOccurrenceDAO().getListOfOccurrences();
-        
+        List<Occurrence> occurrences = new OccurrenceDAO().getListOfOccurrences();
         occurrences.forEach(u -> System.out.println(u));
-        
         //occurrences.forEach(u -> u.calculateDisplacementToThePlaceDuration());
         //occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration().toMinutes()));
         //occurrences.forEach(u -> System.out.println(u.getAmbulance().getAmbulanceType()));
-        
         //SamuOccurrence occurrence = occurrences.get(0);
-        //new SamuOccurrenceDAO().addOccurrenceIntoDataBase(occurrences);
-        
+        //new OccurrenceDAO().addOccurrenceIntoDataBase(occurrences);
         //occurrences.forEach(u -> {System.out.println(Duration.between(u.getTransmissionTime(), u.getPlaceArrivalTime()).toMinutes());});
-        System.out.println("Number of Occurrences = " + occurrences.size());
+        //System.out.println("Number of Occurrences = " + occurrences.size());
+        LocalDate date = LocalDate.now();
+        LocalDateTime ldt1 = LocalDateTime.of(date, LocalTime.now());
+        LocalDateTime ldt2 = LocalDateTime.of(date, LocalTime.now().plusHours(1));
+        System.out.println(date);
+        System.out.println(ldt1);
+        System.out.println(ldt2);
 
+        System.out.println("Duration between = " + Duration.between(ldt1, ldt2));
+        if(Duration.between(ldt1, ldt2).toMinutes() < 0){
+            ldt2 = LocalDateTime.of(date.plusDays(1), LocalTime.now().plusHours(1));
+        }else{
+            System.out.println("Positive");
+        }
+        
+        System.out.println(ldt2);
+        System.out.println("Duration between = " + Duration.between(ldt1, ldt2).toMinutes());
     }
 
 }

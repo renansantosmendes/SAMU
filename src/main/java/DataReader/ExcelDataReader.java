@@ -7,7 +7,7 @@ package DataReader;
 
 import SAMU.Ambulance;
 import SAMU.Hospital;
-import SAMU.SamuOccurrence;
+import SAMU.Occurrence;
 import java.io.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ public class ExcelDataReader {
         this.filePath = filePath;
     }
 
-    public List<SamuOccurrence> readDataFromWorkSheet() throws IOException, BiffException {
+    public List<Occurrence> readDataFromWorkSheet() throws IOException, BiffException {
         WorkbookSettings conf = new WorkbookSettings();
         conf.setEncoding("ISO-8859-1");
         Workbook workbook = Workbook.getWorkbook(new File(this.filePath), conf);
@@ -41,7 +41,7 @@ public class ExcelDataReader {
         int columns = sheet.getColumns();
         System.out.println("Número de Linhas = " + rows);
         System.out.println("Iniciando a leitura da planilha XLS:");
-        List<SamuOccurrence> occurrences = new ArrayList<>();
+        List<Occurrence> occurrences = new ArrayList<>();
         for (int i = 1; i < rows; i++) {
             Cell id = sheet.getCell(0, i);
             Cell transmitionTime = sheet.getCell(1, i);
@@ -64,7 +64,7 @@ public class ExcelDataReader {
             Cell occurrenceMonth = sheet.getCell(19, i);
             Cell occurrenceYear = sheet.getCell(20, i);
 
-            SamuOccurrence samuOccurrence = new SamuOccurrence();
+            Occurrence samuOccurrence = new Occurrence();
             int nullValuesCounter = 0;
 
             if (id.getContents() == "") {

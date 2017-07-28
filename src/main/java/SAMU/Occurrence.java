@@ -15,7 +15,7 @@ import jxl.write.DateTime;
  *
  * @author renansantos
  */
-public class SamuOccurrence {
+public class Occurrence {
 
     private int serviceNumber;
     private LocalDateTime transmissionTime;
@@ -39,11 +39,11 @@ public class SamuOccurrence {
     private Duration ambulanceAttendanceDuration;
     private Duration displacementToTheHospitalDuration;
 
-    public SamuOccurrence() {
+    public Occurrence() {
 
     }
 
-    public SamuOccurrence(int serviceNumber, LocalDateTime transmissionTime, LocalDateTime placeArrivalTime, LocalDateTime placeDepartureTime,
+    public Occurrence(int serviceNumber, LocalDateTime transmissionTime, LocalDateTime placeArrivalTime, LocalDateTime placeDepartureTime,
             LocalDateTime hospitalArrivalTime, LocalDateTime ambulanceReleaseTime,
             String adress, String neighborhood, String region1, String region2, String occurrence, String occurrenceDetail,
             Hospital hospital, String observation, boolean betweenHospitals, Ambulance ambulance, LocalDate occurrenceDate,

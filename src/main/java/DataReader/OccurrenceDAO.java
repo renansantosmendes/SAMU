@@ -5,7 +5,7 @@
  */
 package DataReader;
 
-import SAMU.SamuOccurrence;
+import SAMU.Occurrence;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,12 +21,12 @@ import jxl.Cell;
  *
  * @author renansantos
  */
-public class SamuOccurrenceDAO {
+public class OccurrenceDAO {
 
     private Connection connection = new ConnectionFactory().getConnection();
     private String tableName = "OCCURRENCES_1617";
 
-    public void addOccurrenceIntoDataBase(SamuOccurrence occurrence) {
+    public void addOccurrenceIntoDataBase(Occurrence occurrence) {
         String sql = "insert into " + this.tableName + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -64,12 +64,12 @@ public class SamuOccurrenceDAO {
         }
     }
 
-    public void addOccurrenceIntoDataBase(List<SamuOccurrence> occurrences) {
+    public void addOccurrenceIntoDataBase(List<Occurrence> occurrences) {
         String sql = "insert into " + this.tableName + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
-            for (SamuOccurrence occurrence : occurrences) {
+            for (Occurrence occurrence : occurrences) {
                 try {
                     statement.setString(1, Integer.toString(occurrence.getServiceNumber()));
                     statement.setString(2, occurrence.getTransmissionTime().toString());
@@ -107,10 +107,10 @@ public class SamuOccurrenceDAO {
         }
     }
 
-    public List<SamuOccurrence> getListOfOccurrences() {
+    public List<Occurrence> getListOfOccurrences() {
         try {
             String sql = "select * from " + this.tableName;
-            List<SamuOccurrence> listOfOccurrences = new ArrayList<>();
+            List<Occurrence> listOfOccurrences = new ArrayList<>();
             PreparedStatement statement = this.connection.prepareStatement(sql);
 
             ResultSet resultSet = statement.executeQuery();
@@ -136,32 +136,7 @@ public class SamuOccurrenceDAO {
                 
                 String ambulanceType = resultSet.getString("ambulance_type");
                 
-                
-//                Cell placeArrivalTime = sheet.getCell(2, i);
-//                Cell placeDepartureTime = sheet.getCell(3, i);
-//                Cell hospitalArrivalTime = sheet.getCell(4, i);
-//                Cell ambulanceReleaseTime = sheet.getCell(5, i);
-//                Cell adress = sheet.getCell(6, i);
-//                Cell neighborhood = sheet.getCell(7, i);
-//                Cell region1 = sheet.getCell(8, i);
-//                Cell region2 = sheet.getCell(9, i);
-//                Cell occurrence = sheet.getCell(10, i);
-//                Cell occurrenceDetail = sheet.getCell(11, i);
-//                Cell hospitalName = sheet.getCell(12, i);
-//                Cell observation = sheet.getCell(13, i);
-//                Cell betweenHospital = sheet.getCell(14, i);
-//                Cell ambulanceType = sheet.getCell(15, i);
-//                Cell ambulanceId = sheet.getCell(16, i);
-//                Cell occurrenceDay = sheet.getCell(18, i);
-//                Cell occurrenceMonth = sheet.getCell(19, i);
-//                Cell occurrenceYear = sheet.getCell(20, i);
-//
-//                Integer requestId = resultSet.getInt("id");
-//
-//                Integer deliveryTimeWindowUpper = 60 * (resultSet.getTime("deliveryTimeWindowUpper").toLocalTime().getHour())
-//                        + resultSet.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
-//                
-                SamuOccurrence samuOccurrence = new SamuOccurrence();
+                Occurrence samuOccurrence = new Occurrence();
                 listOfOccurrences.add(samuOccurrence);
             }
             resultSet.close();
