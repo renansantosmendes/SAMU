@@ -23,7 +23,7 @@ public class Occurrence {
     private LocalDateTime placeDepartureTime;
     private LocalDateTime hospitalArrivalTime;
     private LocalDateTime ambulanceReleaseTime;
-    private String adress;
+    private String address;
     private String neighborhood;
     private String region1;
     private String region2;
@@ -55,7 +55,7 @@ public class Occurrence {
         this.placeDepartureTime = placeDepartureTime;
         this.hospitalArrivalTime = hospitalArrivalTime;
         this.ambulanceReleaseTime = ambulanceReleaseTime;
-        this.adress = adress;
+        this.address = adress;
         this.neighborhood = neighborhood;
         this.region1 = region1;
         this.region2 = region2;
@@ -93,8 +93,8 @@ public class Occurrence {
         return ambulanceReleaseTime;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public String getNeighborhood() {
@@ -165,8 +165,8 @@ public class Occurrence {
         this.ambulanceReleaseTime = ambulanceReleaseTime;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setNeighborhood(String neighborhood) {
@@ -260,7 +260,7 @@ public class Occurrence {
                 + this.placeDepartureTime + "\t"
                 + this.hospitalArrivalTime + "\t"
                 + this.ambulanceReleaseTime + "\t"
-                + this.adress + "\t"
+                + this.address + "\t"
                 + this.neighborhood + "\t"
                 + this.region1 + "\t"
                 + this.region2 + "\t"

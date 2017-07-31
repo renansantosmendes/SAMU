@@ -131,10 +131,10 @@ public class ExcelDataReader {
             }
 
             if (adress.getContents() == "") {
-                samuOccurrence.setAdress("");
+                samuOccurrence.setAddress("");
                 nullValuesCounter++;
             } else {
-                samuOccurrence.setAdress(adress.getContents());
+                samuOccurrence.setAddress(adress.getContents());
             }
 
             if (neighborhood.getContents() == "") {

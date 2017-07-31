@@ -34,5 +34,7 @@ public class Ambulance {
         this.ambulanceId = ambulanceId;
     }
     
-    
+    public String toString(){
+        return this.ambulanceType + "\t" + this.ambulanceId + "\t";
+    }
 }
