@@ -86,7 +86,8 @@ public class ExcelDataReader {
 
 
             if (transmitionTime.getContents() == "") {
-                samuOccurrence.setTransmissionTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+//                samuOccurrence.setTransmissionTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+                samuOccurrence.setTransmissionTime(null);
                 nullValuesCounter++;
             } else {
                 String[] transmitionTimeString = transmitionTime.getContents().split(":");
@@ -95,7 +96,8 @@ public class ExcelDataReader {
             }
 
             if (placeArrivalTime.getContents() == "") {
-                samuOccurrence.setPlaceArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+//                samuOccurrence.setPlaceArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+                samuOccurrence.setPlaceArrivalTime(null);
                 nullValuesCounter++;
             } else {
                 String[] placeArrivalTimeString = placeArrivalTime.getContents().split(":");
@@ -104,7 +106,8 @@ public class ExcelDataReader {
             }
 
             if (placeDepartureTime.getContents() == "") {
-                samuOccurrence.setPlaceDepartureTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+//                samuOccurrence.setPlaceDepartureTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+                samuOccurrence.setPlaceDepartureTime(null);
                 nullValuesCounter++;
             } else {
                 String[] placeDepartureTimeString = placeDepartureTime.getContents().split(":");
@@ -113,7 +116,8 @@ public class ExcelDataReader {
             }
 
             if (hospitalArrivalTime.getContents() == "") {
-                samuOccurrence.setHospitalArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+//                samuOccurrence.setHospitalArrivalTime(LocalDateTime.of(occurrenceDate,LocalTime.of(0, 0)));
+                samuOccurrence.setHospitalArrivalTime(null);
                 nullValuesCounter++;
             } else {
                 String[] transmitionTimeString = hospitalArrivalTime.getContents().split(":");
@@ -122,7 +126,8 @@ public class ExcelDataReader {
             }
 
             if (ambulanceReleaseTime.getContents() == "") {
-                samuOccurrence.setAmbulanceReleaseTime(LocalDateTime.of(occurrenceDate, LocalTime.of(0, 0)));
+                //samuOccurrence.setAmbulanceReleaseTime(LocalDateTime.of(occurrenceDate, LocalTime.of(0, 0)));
+                samuOccurrence.setAmbulanceReleaseTime(null);
                 nullValuesCounter++;
             } else {
                 String[] ambulanceReleaseTimeString = ambulanceReleaseTime.getContents().split(":");

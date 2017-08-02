@@ -214,12 +214,13 @@ public class Occurrence {
     }
 
     public void calculateDisplacementToThePlaceDuration() {
+        if(transmissionTime != null && placeArrivalTime != null)
         this.displacementToThePlaceDuration = Duration.between(transmissionTime, placeArrivalTime);
-        if (this.displacementToThePlaceDuration.getSeconds() < 0) {
+        //if (this.displacementToThePlaceDuration.getSeconds() < 0) {
 //            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.transmissionTime);
 //            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime).plusDays(1);
 //            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
-        }
+       // }
     }
 
     public Duration getDisplacementToThePlaceDuration() {
@@ -227,12 +228,9 @@ public class Occurrence {
     }
 
     public void calculateAmbulanceAttendanceDuration() {
+        if(placeArrivalTime != null && placeDepartureTime !=null)
         this.ambulanceAttendanceDuration = Duration.between(placeArrivalTime, placeDepartureTime);
-        if (this.ambulanceAttendanceDuration.getSeconds() < 0) {
-//            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime);
-//            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime).plusDays(1);
-//            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
-        }
+       
     }
     
     public Duration getAmbulanceAttendanceDuration() {
@@ -240,12 +238,13 @@ public class Occurrence {
     }
 
     public void calculateDisplacementToTheHospitalDuration() {
+        if(placeDepartureTime != null && hospitalArrivalTime != null)
         this.displacementToTheHospitalDuration = Duration.between(placeDepartureTime, hospitalArrivalTime);
-        if (this.displacementToTheHospitalDuration.getSeconds() < 0) {
+        //if (this.displacementToTheHospitalDuration.getSeconds() < 0) {
 //            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime);
 //            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.hospitalArrivalTime).plusDays(1);
 //            this.displacementToTheHospitalDuration = Duration.between(lct1, lct2);
-        }
+       // }
     }
     
      public Duration getDisplacementToTheHospitalDuration() {

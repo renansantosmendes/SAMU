@@ -27,10 +27,11 @@ public class Main {
         //String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
         String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
 
-        //List<SamuOccurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
-        List<Occurrence> occurrences = new OccurrenceDAO().getListOfOccurrences();
-        occurrences.forEach(u -> System.out.println(u));
-        
+       // List<Occurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
+        List<Occurrence> occurrences = new OccurrenceDAO().getListOfOccurrencesWithIntegerTimes();
+        occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration()));
+        System.out.println("Tamanho = " + occurrences.size());
+        //new OccurrenceDAO().addOccurrenceIntoDataBaseUsingIntegerTimes(occurrences);
     }
 
 }
