@@ -5,10 +5,16 @@
  */
 package SAMU;
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.GeocodingApiRequest;
+import com.google.maps.model.GeocodingResult;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jxl.write.DateTime;
 
 /**
@@ -214,13 +220,14 @@ public class Occurrence {
     }
 
     public void calculateDisplacementToThePlaceDuration() {
-        if(transmissionTime != null && placeArrivalTime != null)
-        this.displacementToThePlaceDuration = Duration.between(transmissionTime, placeArrivalTime);
+        if (transmissionTime != null && placeArrivalTime != null) {
+            this.displacementToThePlaceDuration = Duration.between(transmissionTime, placeArrivalTime);
+        }
         //if (this.displacementToThePlaceDuration.getSeconds() < 0) {
 //            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.transmissionTime);
 //            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime).plusDays(1);
 //            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
-       // }
+        // }
     }
 
     public Duration getDisplacementToThePlaceDuration() {
@@ -228,27 +235,50 @@ public class Occurrence {
     }
 
     public void calculateAmbulanceAttendanceDuration() {
-        if(placeArrivalTime != null && placeDepartureTime !=null)
-        this.ambulanceAttendanceDuration = Duration.between(placeArrivalTime, placeDepartureTime);
-       
+        if (placeArrivalTime != null && placeDepartureTime != null) {
+            this.ambulanceAttendanceDuration = Duration.between(placeArrivalTime, placeDepartureTime);
+        }
+
     }
-    
+
     public Duration getAmbulanceAttendanceDuration() {
         return this.ambulanceAttendanceDuration;
     }
 
     public void calculateDisplacementToTheHospitalDuration() {
-        if(placeDepartureTime != null && hospitalArrivalTime != null)
-        this.displacementToTheHospitalDuration = Duration.between(placeDepartureTime, hospitalArrivalTime);
+        if (placeDepartureTime != null && hospitalArrivalTime != null) {
+            this.displacementToTheHospitalDuration = Duration.between(placeDepartureTime, hospitalArrivalTime);
+        }
         //if (this.displacementToTheHospitalDuration.getSeconds() < 0) {
 //            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime);
 //            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.hospitalArrivalTime).plusDays(1);
 //            this.displacementToTheHospitalDuration = Duration.between(lct1, lct2);
-       // }
+        // }
     }
-    
-     public Duration getDisplacementToTheHospitalDuration() {
+
+    public Duration getDisplacementToTheHospitalDuration() {
         return this.displacementToTheHospitalDuration;
+    }
+
+    public String getLatLongOfAddress(String geocodingApiKey) {
+        GeoApiContext contextForGeocoding = new GeoApiContext().setApiKey(geocodingApiKey);
+        String address = this.address + "," + this.neighborhood + "," + this.region1+",belo+horizonte";
+        GeocodingApiRequest geocoding = GeocodingApi.newRequest(contextForGeocoding);
+        geocoding.address(address);
+
+        GeocodingResult[] geocodingResult = null;
+        try {
+            geocodingResult = geocoding.await();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Original Adress = " + address);
+        if(geocodingResult.length == 0){
+            return "&markers=color:red|" +"";
+        }else{
+            return "&markers=color:red|" + geocodingResult[0].geometry.location.toString();
+        }
+        
     }
 
     @Override
