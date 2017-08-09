@@ -238,7 +238,9 @@ public class OccurrenceDAO {
 
     private LocalDateTime correctDays(LocalDateTime dateTime1, LocalDateTime dateTime2) throws SQLException {
         if (dateTime1 != null && dateTime2 != null) {
-            if (correctTime(dateTime1, dateTime2)) return dateTime2.plusDays(1);
+            if (correctTime(dateTime1, dateTime2)) {
+                return dateTime2.plusDays(1);
+            }
         }
         return dateTime2;
     }
@@ -290,6 +292,71 @@ public class OccurrenceDAO {
                 int ambulanceId = Integer.parseInt(resultSet.getString("ambulance_id"));
 
                 Ambulance ambulance = new Ambulance(ambulanceType, ambulanceId);
+                String dayOfWeek = resultSet.getString("day_of_week");
+
+                Occurrence samuOccurrence = new Occurrence(serviceNumber, transmissionTime, placeArrivalTime, placeDepartureTime,
+                        hospitalArrivalTime, ambulanceReleaseTime, address, neighborhood, region1, region2, occurrence, occurrenceDetail,
+                        hospital, observation, betweenHospitals, ambulance, occurrenceDate, dayOfWeek);
+                samuOccurrence.calculateDisplacementToThePlaceDuration();
+                samuOccurrence.calculateAmbulanceAttendanceDuration();
+                listOfOccurrences.add(samuOccurrence);
+            }
+            resultSet.close();
+            statement.close();
+            this.connection.close();
+            return listOfOccurrences;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public List<Occurrence> getListOfOccurrencesWithIntegerTimes(List<Ambulance> ambulances) {
+        try {
+            //String sql = "select * from " + this.tableName + " where service_number = 8172400";
+            String sql = "select * from " + this.tableName;
+            List<Occurrence> listOfOccurrences = new ArrayList<>();
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Integer serviceNumber = resultSet.getInt("service_number");
+                LocalDate occurrenceDate = resultSet.getDate("occurrence_date").toLocalDate();
+                LocalDateTime transmissionTime, placeArrivalTime, placeDepartureTime, hospitalArrivalTime, ambulanceReleaseTime;
+
+                transmissionTime = loadIntegerTime(resultSet.getInt("transmission_time"), occurrenceDate);
+                placeArrivalTime = loadIntegerTime(resultSet.getInt("place_arrival_time"), occurrenceDate);
+                placeDepartureTime = loadIntegerTime(resultSet.getInt("place_departure_time"), occurrenceDate);
+                hospitalArrivalTime = loadIntegerTime(resultSet.getInt("hospital_arrival_time"), occurrenceDate);
+                ambulanceReleaseTime = loadIntegerTime(resultSet.getInt("ambulance_release_time"), occurrenceDate);
+
+                placeArrivalTime = correctDays(transmissionTime, placeArrivalTime);
+                placeDepartureTime = correctDays(placeArrivalTime, placeDepartureTime);
+                hospitalArrivalTime = correctDays(placeDepartureTime, hospitalArrivalTime);
+                ambulanceReleaseTime = correctDays(hospitalArrivalTime, ambulanceReleaseTime);
+
+                String address = resultSet.getString("address");
+                String neighborhood = resultSet.getString("neighborhood");
+                String region1 = resultSet.getString("region1");
+                String region2 = resultSet.getString("region2");
+                String occurrence = resultSet.getString("occurrence");
+                String occurrenceDetail = resultSet.getString("occurrence_detail");
+                String hospitalName = resultSet.getString("hospital_name");
+                Hospital hospital = new Hospital(hospitalName, "");
+                String observation = resultSet.getString("observation");
+                boolean betweenHospitals = (resultSet.getInt("between_hospitals") == 1) ? true : false;
+
+                String ambulanceType = resultSet.getString("ambulance_type");
+                int ambulanceId = Integer.parseInt(resultSet.getString("ambulance_id"));
+                Ambulance ambulance = null;
+                for (Ambulance amb : ambulances) {
+                    if (ambulanceId == amb.getAmbulanceId()) {
+                        ambulance = amb;
+                    }
+                }
+
+              // ambulance = new Ambulance(ambulanceType, ambulanceId);
                 String dayOfWeek = resultSet.getString("day_of_week");
 
                 Occurrence samuOccurrence = new Occurrence(serviceNumber, transmissionTime, placeArrivalTime, placeDepartureTime,

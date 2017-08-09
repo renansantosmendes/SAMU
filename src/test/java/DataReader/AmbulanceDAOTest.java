@@ -5,6 +5,8 @@
  */
 package DataReader;
 
+import SAMU.Ambulance;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,8 +21,16 @@ public class AmbulanceDAOTest {
 
     @Test
     public void testGetAmbulances() throws Exception {
-        String table = "AMBULANCES";
-        assertEquals(6, new AmbulanceDAO(table).getAmbulances().size());
+        String ambulancesTable = "AMBULANCES";
+        List<Ambulance> ambulances =  new AmbulanceDAO(ambulancesTable).getAmbulances();
+        int id = 3;
+        for(Ambulance ambulance: ambulances){
+            if(id == ambulance.getAmbulanceId()){
+                System.out.println(ambulance);
+            }
+        }
+        
+        assertEquals(6, ambulances.size());
     }
     
 }

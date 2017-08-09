@@ -5,9 +5,11 @@
  */
 package Main;
 
+import DataReader.AmbulanceDAO;
 import DataReader.ExcelDataReader;
 import DataReader.OccurrenceDAO;
 import GoogleMapsAPI.GoogleStaticMap;
+import SAMU.Ambulance;
 import SAMU.Occurrence;
 import java.io.*;
 import java.sql.SQLException;
@@ -28,15 +30,17 @@ public class Main {
         String geocodingApiKey = "AIzaSyBe73uIaOMxSt0rdHczRCbPZaR7hLAovb4";
         String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
         String staticMapKey = "AIzaSyBpval3mOcQgQ5PlCX8tV7Cm5k-E00_98A";
-        
+        String ambulancesTable = "AMBULANCES";
         //String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
         //String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
 
         //List<Occurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
-        List<Occurrence> occurrences = new OccurrenceDAO().getListOfOccurrencesWithIntegerTimes();
+        List<Ambulance> ambulances = new AmbulanceDAO(ambulancesTable).getAmbulances();
+        List<Occurrence> occurrences = new OccurrenceDAO().getListOfOccurrencesWithIntegerTimes(ambulances);
+        
         //occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration()));
         System.out.println("Tamanho = " + occurrences.size());
-        List<Occurrence> occurrencesForTest = occurrences.subList(0, 100);
+        //List<Occurrence> occurrencesForTest = occurrences.subList(0, 10);
 
         //GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest);
         //occurrencesForTest.forEach(o -> System.out.println(o.getLatLongOfAddress(geocodingApiKey)));
