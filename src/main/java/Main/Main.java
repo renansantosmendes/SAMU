@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.exceltest;
+package Main;
 
 import DataReader.ExcelDataReader;
 import DataReader.OccurrenceDAO;
@@ -32,13 +32,13 @@ public class Main {
         //String filePath = "/home/renansantos/Área de Trabalho/Dados Samu/BD_SAMU_TESTE.xls";
         //String filePath = "/home/renansantos/Área de Trabalho/BD_SAMU_FINAL.xls";
 
-       // List<Occurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
+        //List<Occurrence> occurrences = new ExcelDataReader(filePath).readDataFromWorkSheet();
         List<Occurrence> occurrences = new OccurrenceDAO().getListOfOccurrencesWithIntegerTimes();
-//        occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration()));
+        //occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration()));
         System.out.println("Tamanho = " + occurrences.size());
         List<Occurrence> occurrencesForTest = occurrences.subList(0, 100);
-        GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest);
-        
+
+        //GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest);
         //occurrencesForTest.forEach(o -> System.out.println(o.getLatLongOfAddress(geocodingApiKey)));
         //new OccurrenceDAO().addOccurrenceIntoDataBaseUsingIntegerTimes(occurrences);
     }
