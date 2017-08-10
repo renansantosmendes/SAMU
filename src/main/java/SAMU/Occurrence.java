@@ -5,10 +5,18 @@
  */
 package SAMU;
 
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.GeocodingApiRequest;
+import com.google.maps.model.DirectionsLeg;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.GeocodingResult;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,8 +50,17 @@ public class Occurrence {
     private LocalDate occurrenceDate;
     private String dayOfWeek;
     private Duration displacementToThePlaceDuration;
+    private long displacementToThePlaceDistance;
+    private Duration displacementToThePlaceDurationUsingAPI;
     private Duration ambulanceAttendanceDuration;
     private Duration displacementToTheHospitalDuration;
+    private Duration displacementToTheHospitalDurationUsingAPI;
+    private static String geocodingApiKey = "AIzaSyBe73uIaOMxSt0rdHczRCbPZaR7hLAovb4";
+    private static String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
+    private String formatedAddress;
+    private static PrintStream file = null;
+    private String folderName = "Results";
+    private String fileName = "Test";
 
     public Occurrence() {
 
@@ -73,6 +90,8 @@ public class Occurrence {
         this.ambulance = ambulance;
         this.occurrenceDate = occurrenceDate;
         this.dayOfWeek = dayOfWeek;
+        createFolderForData();
+        initializeStream();
     }
 
     public int getServiceNumber() {
@@ -223,15 +242,86 @@ public class Occurrence {
         if (transmissionTime != null && placeArrivalTime != null) {
             this.displacementToThePlaceDuration = Duration.between(transmissionTime, placeArrivalTime);
         }
-        //if (this.displacementToThePlaceDuration.getSeconds() < 0) {
-//            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.transmissionTime);
-//            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.placeArrivalTime).plusDays(1);
-//            this.displacementToThePlaceDuration = Duration.between(lct1, lct2);
-        // }
+    }
+
+    public long getDisplacementToThePlaceDistance() {
+        return displacementToThePlaceDistance;
+    }
+
+    public String getFormatedAddress() {
+        return formatedAddress;
+    }
+
+    public void calculateDisplacementToThePlaceUsingAPI() {
+        String origin = this.ambulance.getBaseAddress();
+        String destination = this.region2 + ",belo+horizonte";
+        //String destination = this.address + "," + this.neighborhood + "," + this.region1 + ",belo+horizonte";
+
+        GeoApiContext contextOrigin = new GeoApiContext().setApiKey(geocodingApiKey);
+        GeoApiContext contextDestination = new GeoApiContext().setApiKey(geocodingApiKey);
+        GeoApiContext geoApiContextSAMU = new GeoApiContext().setApiKey(directionsApiKey);
+        GeocodingApiRequest originGeocoding = GeocodingApi.newRequest(contextOrigin);
+        GeocodingApiRequest destinationGeocoding = GeocodingApi.newRequest(contextDestination);
+        originGeocoding.address(origin);
+        destinationGeocoding.address(destination);
+
+        GeocodingResult[] originResult = null;
+        GeocodingResult[] destinationResult = null;
+
+        try {
+            originResult = originGeocoding.await();
+            destinationResult = destinationGeocoding.await();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println("Origin = " + originResult[0].formattedAddress);
+//        System.out.println("Destination = " + destinationResult[0].formattedAddress);
+
+        this.formatedAddress = destinationResult[0].formattedAddress;
+
+        DirectionsApiRequest directionsApiRequestSAMU = DirectionsApi.getDirections(geoApiContextSAMU,
+                originResult[0].formattedAddress, destinationResult[0].formattedAddress);
+        directionsApiRequestSAMU.alternatives(true);
+
+        DirectionsResult routesBetweenNodesSAMU = null;
+        try {
+            routesBetweenNodesSAMU = directionsApiRequestSAMU.await();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        DirectionsRoute[] route = routesBetweenNodesSAMU.routes;
+        DirectionsLeg[] directionsLeg = route[0].legs;
+
+        this.displacementToThePlaceDurationUsingAPI = Duration.ofSeconds(directionsLeg[0].duration.inSeconds);
+        this.displacementToThePlaceDistance = directionsLeg[0].distance.inMeters;
+    }
+
+    public void saveDataInFile() {
+        file.print(this.serviceNumber + "\t" + this.displacementToThePlaceDuration.toMinutes()
+                + "\t" + this.displacementToThePlaceDurationUsingAPI.toMinutes() + "\t" 
+                + this.displacementToThePlaceDistance + "\t" + this.formatedAddress +"\n");
+    }
+
+    private void initializeStream() {
+        try {
+            file = new PrintStream(folderName + "/" + fileName + ".txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createFolderForData() {
+        boolean success = (new File(folderName)).mkdirs();
     }
 
     public Duration getDisplacementToThePlaceDuration() {
         return this.displacementToThePlaceDuration;
+    }
+
+    public Duration getDisplacementToThePlaceDurationUsingAPI() {
+        return displacementToThePlaceDurationUsingAPI;
     }
 
     public void calculateAmbulanceAttendanceDuration() {
@@ -249,11 +339,6 @@ public class Occurrence {
         if (placeDepartureTime != null && hospitalArrivalTime != null) {
             this.displacementToTheHospitalDuration = Duration.between(placeDepartureTime, hospitalArrivalTime);
         }
-        //if (this.displacementToTheHospitalDuration.getSeconds() < 0) {
-//            LocalDateTime lct1 = LocalDateTime.of(this.occurrenceDate, this.placeDepartureTime);
-//            LocalDateTime lct2 = LocalDateTime.of(this.occurrenceDate, this.hospitalArrivalTime).plusDays(1);
-//            this.displacementToTheHospitalDuration = Duration.between(lct1, lct2);
-        // }
     }
 
     public Duration getDisplacementToTheHospitalDuration() {
@@ -262,7 +347,7 @@ public class Occurrence {
 
     public String getLatLongOfAddress(String geocodingApiKey) {
         GeoApiContext contextForGeocoding = new GeoApiContext().setApiKey(geocodingApiKey);
-        String address = this.address + "," + this.neighborhood + "," + this.region1+",belo+horizonte";
+        String address = this.address + "," + this.neighborhood + "," + this.region1 + ",belo+horizonte";
         GeocodingApiRequest geocoding = GeocodingApi.newRequest(contextForGeocoding);
         geocoding.address(address);
 
@@ -273,12 +358,12 @@ public class Occurrence {
             e.printStackTrace();
         }
         System.out.println("Original Adress = " + address);
-        if(geocodingResult.length == 0){
-            return "&markers=color:red|" +"";
-        }else{
+        if (geocodingResult.length == 0) {
+            return "&markers=color:red|" + "";
+        } else {
             return "&markers=color:red|" + geocodingResult[0].geometry.location.toString();
         }
-        
+
     }
 
     @Override

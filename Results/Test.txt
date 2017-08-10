@@ -1,0 +1,50 @@
+8171684	19	28	12729	Rua Pastor Muryllo Cassete, 25 - São Bernardo, Belo Horizonte - MG, 31741-405, Brazil
+8172384	5	2	973	Venda Nova, Belo Horizonte - MG, Brazil
+8172400	15	25	12668	Venda Nova, Belo Horizonte - MG, Brazil
+8172423	8	11	3063	Rua dos Tupis, 38 - Centro, Belo Horizonte - MG, 30190-060, Brazil
+8172512	10	4	1714	Barreiro, Belo Horizonte - State of Minas Gerais, Brazil
+8172543	8	17	11783	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8172601	7	6	2390	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8172621	3	16	6172	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8172659	10	1136	1456739	Belo Horizonte, Lauro de Freitas - BA, 42700-000, Brazil
+8172666	3	6	3912	Rua Pastor Muryllo Cassete, 25 - São Bernardo, Belo Horizonte - MG, 31741-405, Brazil
+8172690	4	23	9166	Vila Oeste, Belo Horizonte - MG, Brazil
+8172695	13	4	1714	Barreiro, Belo Horizonte - State of Minas Gerais, Brazil
+8172757	7	16	6172	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8172798	7	6	3912	Rua Pastor Muryllo Cassete, 25 - São Bernardo, Belo Horizonte - MG, 31741-405, Brazil
+8172860	13	17	11783	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8172999	9	16	5611	R. Jacuí, 1596 - Graça, Belo Horizonte - MG, 31140-200, Brazil
+8173011	9	16	5611	R. Jacuí, 1596 - Graça, Belo Horizonte - MG, 31140-200, Brazil
+8173195	11	6	3912	Rua Pastor Muryllo Cassete, 25 - São Bernardo, Belo Horizonte - MG, 31741-405, Brazil
+8173261	7	6	2893	Vila Oeste, Belo Horizonte - MG, Brazil
+8173280	9	6	2390	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8173340	15	1125	1460905	Belo Horizonte, Lauro de Freitas - BA, 42700-000, Brazil
+8173362	15	1136	1456739	Belo Horizonte, Lauro de Freitas - BA, 42700-000, Brazil
+8173398	7	6	2390	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8173450	9	16	5611	R. Jacuí, 1596 - Graça, Belo Horizonte - MG, 31140-200, Brazil
+8173538	5	11	3063	Rua dos Tupis, 38 - Centro, Belo Horizonte - MG, 30190-060, Brazil
+8173569	5	13	7862	Av. Pastor Anselmo Silvestre, 1495 - Dom Joaquim, Belo Horizonte - MG, 31170-678, Brazil
+8173581	5	2	973	Venda Nova, Belo Horizonte - MG, Brazil
+8173925	14	6	2893	Vila Oeste, Belo Horizonte - MG, Brazil
+8173925	7	6	2893	Vila Oeste, Belo Horizonte - MG, Brazil
+8173933	16	30	17157	Av. do Contorno, 5690 - Funcionários, Belo Horizonte - MG, 30110-036, Brazil
+8173960	14	1136	1456739	Belo Horizonte, Lauro de Freitas - BA, 42700-000, Brazil
+8174024	5	4	1714	Barreiro, Belo Horizonte - State of Minas Gerais, Brazil
+8174085	5	7	2613	Rua dos Tupis, 38 - Centro, Belo Horizonte - MG, 30190-060, Brazil
+8174107	5	10	6011	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8174109	6	16	5611	R. Jacuí, 1596 - Graça, Belo Horizonte - MG, 31140-200, Brazil
+8174137	11	16	5611	R. Jacuí, 1596 - Graça, Belo Horizonte - MG, 31140-200, Brazil
+8174230	5	2	973	Venda Nova, Belo Horizonte - MG, Brazil
+8174321	10	16	6172	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8174332	14	6	2390	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8174333	23	30	17157	Av. do Contorno, 5690 - Funcionários, Belo Horizonte - MG, 30110-036, Brazil
+8174447	9	1127	1464259	Belo Horizonte, Lauro de Freitas - BA, 42700-000, Brazil
+8174476	8	26	21699	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8174584	12	1127	1464259	Belo Horizonte, Lauro de Freitas - BA, 42700-000, Brazil
+8174606	15	14	10263	Barreiro, Belo Horizonte - State of Minas Gerais, Brazil
+8174628	10	16	6172	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
+8174663	11	11	7621	Vila Oeste, Belo Horizonte - MG, Brazil
+8174764	10	14	10263	Barreiro, Belo Horizonte - State of Minas Gerais, Brazil
+8174814	7	6	2390	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8174877	13	19	9216	Rua dos Tupinambás, 120 - Centro, Belo Horizonte - MG, 30120-070, Brazil
+8175008	17	16	6172	Av. Otacílio Negrão de Lima, s/n - São Luiz, Belo Horizonte - MG, 31550-000, Brazil
