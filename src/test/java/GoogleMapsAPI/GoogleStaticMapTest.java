@@ -37,7 +37,7 @@ public class GoogleStaticMapTest {
         assertEquals(10, occurrencesForTest.size());
         occurrencesForTest.forEach(o -> o.getLatLongOfAddress(geocodingApiKey));
         
-        GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest);
+        //GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest);
     }
 
 }

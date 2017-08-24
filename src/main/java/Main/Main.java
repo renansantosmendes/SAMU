@@ -40,10 +40,10 @@ public class Main {
         
         //occurrences.forEach(u -> System.out.println(u.getDisplacementToThePlaceDuration()));
         //System.out.println("Tamanho = " + occurrences.size());
-        List<Occurrence> occurrencesForTest = occurrences.subList(0, 50);
-        occurrencesForTest.forEach(o -> o.calculateDisplacementToThePlaceUsingAPI());
-        occurrencesForTest.forEach(o -> o.saveDataInFile());
-        //GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest);
+        List<Occurrence> occurrencesForTest = occurrences.subList(0, 10);
+//        occurrencesForTest.forEach(o -> o.calculateDisplacementToThePlaceUsingAPI());
+//        occurrencesForTest.forEach(o -> o.saveDataInFile());
+        //GoogleStaticMap map = new GoogleStaticMap(occurrencesForTest,ambulances);
         //occurrencesForTest.forEach(o -> System.out.println(o.getLatLongOfAddress(geocodingApiKey)));
         //new OccurrenceDAO().addOccurrenceIntoDataBaseUsingIntegerTimes(occurrences);
     }

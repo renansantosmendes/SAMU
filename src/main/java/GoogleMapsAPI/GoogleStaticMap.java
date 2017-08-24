@@ -5,6 +5,7 @@
  */
 package GoogleMapsAPI;
 
+import SAMU.Ambulance;
 import SAMU.Occurrence;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,9 +57,11 @@ public class GoogleStaticMap {
     private List<Integer> route;
     private String adjacenciesTable;
     private String nodesTable;
+    private List<Ambulance> ambulances;
 
-    public GoogleStaticMap(List<Occurrence> occurrences) {
+    public GoogleStaticMap(List<Occurrence> occurrences, List<Ambulance> ambulances) {
         this.occurrences = occurrences;
+        this.ambulances = ambulances;
         boolean successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
 
         buildStringWithNodeMarkets();
@@ -69,7 +72,7 @@ public class GoogleStaticMap {
             ex.printStackTrace();
         }
     }
-
+    
     private void buildStringWithNodeMarkets() {
         for (int i = 0; i < this.occurrences.size(); i++) {
             stringOfMarkers.append(this.occurrences.get(i).getLatLongOfAddress(geocodingApiKey));
